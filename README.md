@@ -177,3 +177,72 @@ Please cite the [arXiv paper](https://arxiv.org/abs/1705.06476) if you use ParlA
 
 ## License
 ParlAI is MIT licensed. See the **[LICENSE](https://github.com/facebookresearch/ParlAI/blob/main/LICENSE)** file for details.
+
+
+## 使い方
+Python3.8＋が使える環境で行う（Anaconda3とかdockerとか)
+```
+pip install parlai
+git clone https://github.com/facebookresearch/ParlAI.git ~/ParlAI
+cd ~/ParlAI; python setup.py develop
+```
+### インストールするもの
+```
+pip install google
+pip install googlesearch-python
+pip install google-cloud
+```
+### 実行
+
+#### BlenderBot
+
+90M
+```
+python parlai/scripts/safe_interactive.py -t blended_skill_talk -mf zoo:blender/blender_90M/model
+```
+2.7B
+```
+python parlai/scripts/safe_interactive.py -t blended_skill_talk -mf zoo:blender/blender_3B/model
+```
+9.4B
+```
+python parlai/scripts/safe_interactive.py -t blended_skill_talk -mf zoo:blender/blender_9B/model
+```
+
+#### BlenderBot 2.0
+fairseqが必要なため、git cloneする
+```
+git clone https://github.com/pytorch/fairseq
+cd fairseq
+pip install --editable ./
+```
+pip install fairseqはしないほうがいいらしい。
+
+
+サーバーを立ち上げる必要があるため、別のレポジトリをgit cloneする（初回だけ）
+```
+git clone https://github.com/a-ichikura/ParlAI_SearchEngine.git ~/ParlAI_SearchEngine
+cd ~/ParlAI_SearchEngine
+pip install -r requirements.txt
+```
+初回以降以下でサーバーを立ち上げる
+```
+python search_server.py serve --host 0.0.0.0:8080
+```
+別のターミナルを開いて、modelを動かす
+
+400M
+```
+python -m parlai.scripts.interactive --model-file zoo:blenderbot2/blenderbot2_400M/model --search_server 0.0.0.0:8080
+```
+
+※途中でctrl-cしてしまうとモデルが中途半端に残ってしまうので最後まで待つ。
+```
+Enter Your Message:
+```
+が出てきたら成功。
+
+対話の中にmodelが知らない単語が出てきたら、
+search_server.pyの方のターミナル画面に検索履歴が出る。
+
+(CPUだと時間がかかるのでGPU推奨）
