@@ -221,7 +221,7 @@ pip install fairseqはしないほうがいいらしい。
 
 サーバーを立ち上げる必要があるため、別のレポジトリをgit cloneする（初回だけ）
 ```
-git clone https://github.com/a-ichikura/ParlAI_SearchEngine.git ~/ParlAI_SearchEngine
+git clone -b ichikura-main https://github.com/a-ichikura/ParlAI_SearchEngine.git ~/ParlAI_SearchEngine
 cd ~/ParlAI_SearchEngine
 pip install -r requirements.txt
 ```
