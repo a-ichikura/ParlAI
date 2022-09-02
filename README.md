@@ -218,6 +218,11 @@ pip install --editable ./
 ```
 pip install fairseqはしないほうがいいらしい。
 
+transformerが必要なため、インストールする
+```
+pip install transformers
+```
+
 
 サーバーを立ち上げる必要があるため、別のレポジトリをgit cloneする（初回だけ）
 ```
